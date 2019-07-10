@@ -9,16 +9,19 @@ y = [[]]
 with open(sys.argv[1], 'r') as f:
     lines = f.readlines()
 
-for line in lines:
+x_label = lines[0].split('\t')[0]
+y_label = lines[0].split('\t')[1]
+
+for line in lines[1:]:
     value_arr = line.split('\t')
     x.append(value_arr[0])
     y.append(value_arr[1:])
 
-output_file(sys.argv[1], ".html")
+output_file(os.path.join('outputs', (os.path.split(sys.argv[1])[-1] + ".html")))
 
-p = figure(title="simple line example",
-           x_axis_label='x',
-           y_axis_label='y')
+p = figure(title="Scope Square",
+           x_axis_label=x_label,
+           y_axis_label=y_label)
 
 p.line(x, y, legend="Temp.", line_width=2)
 
